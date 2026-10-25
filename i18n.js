@@ -2,7 +2,7 @@
 (function () {
   const ORDER = ['ru', 'en', 'uz', 'ko'];
   const ROWS = {
-    meta_desc: ["Импорт грузов из Кореи, Японии, Таиланда и России в Узбекистан: блок-поезда, мультимодальные перевозки, таможня и доставка до склада.", "Import freight from Korea, Japan, Thailand and Russia to Uzbekistan: block trains, multimodal transport, customs clearance and delivery to your warehouse.", "Koreya, Yaponiya, Tailand va Rossiyadan Oʻzbekistonga import yuklari: blok-poyezdlar, multimodal tashuvlar, bojxona va omborgacha yetkazish.", "한국, 일본, 태국, 러시아에서 우즈베키스탄으로의 수입 화물: 블록트레인, 복합운송, 통관 및 창고 배송."],
+    meta_desc: ["Импорт грузов из Кореи, Японии, Таиланда и России в Узбекистан: блок-поезда, мультимодальные и авиаперевозки, таможня и доставка до склада.", "Import freight from Korea, Japan, Thailand and Russia to Uzbekistan: block trains, multimodal and air freight, customs clearance and delivery to your warehouse.", "Koreya, Yaponiya, Tailand va Rossiyadan Oʻzbekistonga import yuklari: blok-poyezdlar, multimodal va aviatashuvlar, bojxona va omborgacha yetkazish.", "한국, 일본, 태국, 러시아에서 우즈베키스탄으로의 수입 화물: 블록트레인, 복합운송, 항공 운송, 통관 및 창고 배송."],
 
     nav_routes: ['Маршруты', 'Routes', 'Yoʻnalishlar', '노선'],
     nav_services: ['Услуги', 'Services', 'Xizmatlar', '서비스'],
@@ -15,7 +15,7 @@
     h1_a: ["Импорт", "Import", "Osiyodan", "아시아에서"],
     h1_b: ["из Азии", "from Asia", "import", "수입까지"],
     h1_c: ["под ключ", "turnkey", "yagona yoʻl", "원스톱"],
-    hero_lead: ["Привозим грузы из Кореи, Японии, Таиланда и России в Ташкент: блок-поезда, мультимодальные и железнодорожные перевозки. Таможня и доставка до склада — в одном договоре.", "We bring cargo from Korea, Japan, Thailand and Russia to Tashkent by block train, multimodal and rail freight. Customs clearance and delivery to your warehouse under one contract.", "Koreya, Yaponiya, Tailand va Rossiyadan Toshkentga yuk olib kelamiz: blok-poyezd, multimodal va temir yoʻl tashuvlari. Bojxona rasmiylashtiruvi va omborgacha yetkazish — bitta shartnomada.", "한국, 일본, 태국, 러시아의 화물을 블록트레인, 복합운송, 철도로 타슈켄트까지 운송합니다. 통관과 창고 배송까지 하나의 계약으로."],
+    hero_lead: ["Привозим грузы из Кореи, Японии, Таиланда и России в Ташкент: блок-поезда, мультимодальные, железнодорожные и авиаперевозки. Таможня и доставка до склада — в одном договоре.", "We bring cargo from Korea, Japan, Thailand and Russia to Tashkent by block train, multimodal, rail and air freight. Customs clearance and delivery to your warehouse under one contract.", "Koreya, Yaponiya, Tailand va Rossiyadan Toshkentga yuk olib kelamiz: blok-poyezd, multimodal, temir yoʻl va aviatashuvlar. Bojxona rasmiylashtiruvi va omborgacha yetkazish — bitta shartnomada.", "한국, 일본, 태국, 러시아의 화물을 블록트레인, 복합운송, 철도, 항공으로 타슈켄트까지 운송합니다. 통관과 창고 배송까지 하나의 계약으로."],
     cta_calc: ['Рассчитать перевозку', 'Calculate shipping', 'Tashishni hisoblash', '운송 견적 계산'],
     cta_routes: ['Смотреть маршруты', 'View routes', 'Yoʻnalishlarni koʻrish', '노선 보기'],
     chipA_r: ["Пусан → Ташкент", "Busan → Tashkent", "Busan → Toshkent", "부산 → 타슈켄트"],
@@ -53,7 +53,7 @@
     c_vlad: ['Владивосток', 'Vladivostok', 'Vladivostok', '블라디보스토크'],
     c_mosc: ['Москва', 'Moscow', 'Moskva', '모스크바'],
 
-    svc_h2: ['Три способа<br>довезти груз', 'Three ways<br>to move your cargo', 'Yukni yetkazishning<br>uch usuli', '화물을 보내는<br>세 가지 방법'],
+    svc_h2: ["Четыре способа<br>довезти груз", "Four ways<br>to move your cargo", "Yukni yetkazishning<br>toʻrt usuli", "화물을 보내는<br>네 가지 방법"],
     s1_t: ['Блок-поезд', 'Block train', 'Blok-poyezd', '블록트레인'],
     s1_p: ["Целый состав под ваш импортный груз. Фиксированный график и короткий транзит из портов Дальнего Востока и Китая.", "A whole train for your import cargo. Fixed schedule and short transit from Far East and Chinese ports.", "Import yuklaringiz uchun butun poyezd. Uzoq Sharq va Xitoy portlaridan qatʼiy jadval va qisqa tranzit.", "수입 화물 전용 열차. 극동·중국 항만에서 출발하는 고정 일정과 짧은 운송 시간."],
     s1_a: ['От 50 вагонов', 'From 50 wagons', '50 vagondan', '50량부터'],
@@ -76,6 +76,16 @@
     w_close: ["Закрыть", "Close", "Yopish", "닫기"],
     w_prev: ["Назад", "Previous", "Orqaga", "이전"],
     w_next: ["Вперёд", "Next", "Oldinga", "다음"],
+
+    r4: ["Инчхон → Ташкент (авиа)", "Incheon → Tashkent (air)", "Inchxon → Toshkent (avia)", "인천 → 타슈켄트 (항공)"],
+    r4s: ["Инчхон → Ташкент (авиа)", "Incheon → Tashkent (air)", "Inchxon → Toshkent (avia)", "인천 → 타슈켄트 (항공)"],
+    r4d: ["Рейсы из аэропорта Инчхон в Ташкент для срочных и ценных грузов.", "Flights from Incheon airport to Tashkent for urgent and high-value cargo.", "Shoshilinch va qimmatbaho yuklar uchun Inchxon aeroportidan Toshkentga reyslar.", "긴급·고가 화물을 위한 인천공항발 타슈켄트행 항공 운송."],
+    ty_air: ["Авиагруз", "Air cargo", "Avia yuk", "항공 화물"],
+    s4_t: ["Авиаперевозки", "Air freight", "Aviatashuvlar", "항공 운송"],
+    s4_p: ["Срочные и ценные грузы самолётом: от забора у поставщика до таможни в Ташкенте.", "Urgent and high-value cargo by air, from supplier pickup to customs clearance in Tashkent.", "Shoshilinch va qimmatbaho yuklar havo orqali: yetkazib beruvchidan olishdan Toshkentdagi bojxonagacha.", "긴급·고가 화물을 항공으로: 공급업체 픽업부터 타슈켄트 통관까지."],
+    s4_a: ["Срочные отправки", "Urgent shipments", "Shoshilinch joʻnatmalar", "긴급 운송"],
+    s4_b: ["Ценные и хрупкие грузы", "High-value and fragile cargo", "Qimmatbaho va moʻrt yuklar", "고가·취급주의 화물"],
+    s4_c: ["От двери до двери", "Door to door", "Eshikdan eshikkacha", "문전에서 문전까지"],
 
     st_clients: ['клиентов', 'clients', 'mijozlar', '고객사'],
     st_countries: ['стран', 'countries', 'mamlakat', '개국'],

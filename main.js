@@ -97,7 +97,8 @@
     { days: '25–30', min: 25, max: 30, via: ['busan', 'lyun', 'urum', 'alm', 'tash'], bend: -40 },
     { days: '35–40', min: 35, max: 40, via: ['kobe', 'lyun', 'urum', 'alm', 'tash'], bend: -55 },
     { days: '35–40', min: 35, max: 40, via: ['laem', 'urum', 'tash'], bend: 60 },
-    { days: '15', min: 15, max: 15, via: ['vlad', 'tash'], bend: -70 }
+    { days: '15', min: 15, max: 15, via: ['vlad', 'tash'], bend: -70 },
+    { days: '3–7', min: 3, max: 7, via: ['inch', 'tash'], bend: -150, air: true }
   ];
   const T = I18N.t;
 
@@ -249,14 +250,14 @@
   const calc = () => {
     const r = ROUTES[+fRoute.value], t = +$('#fType input:checked').value, w = +fW.value;
     $('#wVal').textContent = w + ' ' + T('unit_t');
-    const min = Math.max(7, r.min + typeAdj[t] - (r.min === r.max ? 0 : 0)), max = r.max + typeAdj[t] + (t === 2 ? 3 : 0);
+    const air = !!r.air, min = air ? r.min : Math.max(7, r.min + typeAdj[t]), max = air ? r.max : r.max + typeAdj[t] + (t === 2 ? 3 : 0);
     const txt = min === max ? `${min}` : `${min}–${max}`;
     const el = $('#cDays');
     gsap.fromTo(el, { y: 14, opacity: .2 }, { y: 0, opacity: 1, duration: .5 });
     el.textContent = txt;
     const pct = Math.min(95, 12 + (max / 45) * 80);
     $('#cBar').style.width = pct + '%'; $('#cTrain').style.left = pct + '%';
-    $('#cSummary').textContent = `${T('r' + (+fRoute.value) + 's')} · ${T('ty' + t)} · ${w} ${T('unit_t')}`;
+    $('#cSummary').textContent = `${T('r' + (+fRoute.value) + 's')} · ${r.air ? T('ty_air') : T('ty' + t)} · ${w} ${T('unit_t')}`;
   };
   [fRoute, fW].forEach(e => e.addEventListener('input', calc));
   $$('#fType input').forEach(e => e.addEventListener('change', calc));
