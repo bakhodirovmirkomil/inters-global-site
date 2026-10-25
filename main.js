@@ -175,6 +175,53 @@
   setActive(0); place(0, 0.001); renderRoutesText();
   if (!pinST.vars.pin) goRoute(0);
 
+
+  /* ---------- works (videos) ---------- */
+  const track = $('#worksTrack'), vm = $('#vmodal'), vBody = $('#vBody');
+  const WK = window.WORKS || [];
+  const pick = o => (o && (o[I18N.lang] || o.ru)) || '';
+  const renderWorks = () => {
+    track.innerHTML = '';
+    WK.forEach((w, i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'work' + (w.type === 'soon' ? ' work--soon' : '');
+      const poster = w.type === 'mp4'
+        ? `<video muted loop playsinline preload="metadata" src="${w.src}" ${w.poster ? `poster="${w.poster}"` : ''}></video>`
+        : (w.poster ? `<img src="${w.poster}" alt="" loading="lazy">` : '');
+      const play = w.type === 'soon' ? T('w_soon') : '<svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg>';
+      b.innerHTML = `<div class="work__poster" style="--g1:${(w.c || ['#0B3187', '#2340FF'])[0]};--g2:${(w.c || ['#0B3187', '#2340FF'])[1]}">${poster}</div><span class="work__play">${play}</span><div class="work__info"><small class="mono">${pick(w.m)}</small><h3>${pick(w.t)}</h3></div>`;
+      b.setAttribute('aria-label', pick(w.t));
+      if (w.type !== 'soon') {
+        b.addEventListener('click', () => openVideo(w));
+        const v = $('video', b);
+        if (v) { b.addEventListener('pointerenter', () => v.play().catch(() => {})); b.addEventListener('pointerleave', () => { v.pause(); v.currentTime = 0; }); }
+      } else b.setAttribute('aria-disabled', 'true');
+      track.appendChild(b);
+    });
+  };
+  function openVideo(w) {
+    vBody.innerHTML = w.type === 'youtube'
+      ? `<iframe src="https://www.youtube-nocookie.com/embed/${w.id}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="${pick(w.t)}"></iframe>`
+      : `<video src="${w.src}" ${w.poster ? `poster="${w.poster}"` : ''} controls autoplay playsinline></video>`;
+    $('#vTitle').textContent = pick(w.t);
+    vm.showModal(); lenis && lenis.stop();
+  }
+  const closeVideo = () => { vm.close(); };
+  vm.addEventListener('close', () => { vBody.innerHTML = ''; lenis && lenis.start(); });
+  vm.addEventListener('click', e => { if (e.target === vm) closeVideo(); });
+  $('#vClose').addEventListener('click', closeVideo);
+  const step = () => (track.firstElementChild ? track.firstElementChild.getBoundingClientRect().width + 20 : 500);
+  $('#wPrev').addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+  $('#wNext').addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+  // перетаскивание мышью
+  let down = false, sx = 0, sl = 0, moved = false;
+  track.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; down = true; moved = false; sx = e.clientX; sl = track.scrollLeft; });
+  addEventListener('pointermove', e => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 5) { moved = true; track.classList.add('drag'); } track.scrollLeft = sl - dx; });
+  addEventListener('pointerup', () => { down = false; track.classList.remove('drag'); });
+  track.addEventListener('click', e => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+  renderWorks();
+  if (!reduce) ScrollTrigger.create({ trigger: '#works', start: 'top 80%', once: true, onEnter: () => gsap.from('.work', { x: 120, opacity: 0, duration: 1, stagger: .12, ease: 'power3.out' }) });
+
   /* ---------- reveals ---------- */
   if (!reduce) {
     $$('.sec-head,.card,.step,.stats__grid>div,.calc__left,.form,.footer__cols>div').forEach(el => el.classList.add('rv'));
@@ -227,7 +274,7 @@
   });
 
   I18N.on(() => {
-    renderRoutesText(); calc();
+    renderRoutesText(); calc(); renderWorks();
     $$('[data-count]').forEach(el => { if (el.textContent !== '0') el.textContent = (+el.dataset.count).toLocaleString(loc()); });
     requestAnimationFrame(() => ScrollTrigger.refresh());
   });

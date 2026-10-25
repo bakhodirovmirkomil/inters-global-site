@@ -70,6 +70,13 @@
     s3_b: ["Хранение на терминале", "Terminal storage", "Terminalda saqlash", "터미널 보관"],
     s3_c: ['Отслеживание онлайн', 'Online tracking', 'Onlayn kuzatuv', '온라인 화물 추적'],
 
+    nav_works: ["Наши работы", "Our work", "Ishlarimiz", "프로젝트"],
+    works_h2: ["Наши работы<br>в движении", "Our work<br>in motion", "Ishlarimiz<br>harakatda", "움직이는<br>프로젝트"],
+    w_soon: ["Видео скоро", "Video coming soon", "Video tez orada", "영상 준비 중"],
+    w_close: ["Закрыть", "Close", "Yopish", "닫기"],
+    w_prev: ["Назад", "Previous", "Orqaga", "이전"],
+    w_next: ["Вперёд", "Next", "Oldinga", "다음"],
+
     st_clients: ['клиентов', 'clients', 'mijozlar', '고객사'],
     st_countries: ['стран', 'countries', 'mamlakat', '개국'],
     st_partners: ['партнёров', 'partners', 'hamkorlar', '파트너'],

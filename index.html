@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="icon" href="img/favicon.png">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -24,6 +24,7 @@
   <nav class="nav__links">
     <a href="#routes" data-i18n="nav_routes">РњР°СЂС€СЂСѓС‚С‹</a>
     <a href="#services" data-i18n="nav_services">РЈСЃР»СѓРіРё</a>
+    <a href="#works" data-i18n="nav_works">Works</a>
     <a href="#calc" data-i18n="nav_calc">Р Р°СЃС‡С‘С‚</a>
     <a href="#contacts" data-i18n="nav_contacts">РљРѕРЅС‚Р°РєС‚С‹</a>
   </nav>
@@ -142,6 +143,27 @@
   </div>
 </section>
 
+<!-- WORKS -->
+<section class="works" id="works">
+  <div class="wrap works__head">
+    <div class="sec-head">
+      <p class="eyebrow mono" data-i18n="nav_works">Наши работы</p>
+      <h2 data-i18n-html="works_h2"></h2>
+    </div>
+    <div class="works__nav">
+      <button type="button" id="wPrev" data-i18n-aria="w_prev" aria-label="Назад">←</button>
+      <button type="button" id="wNext" data-i18n-aria="w_next" aria-label="Вперёд">→</button>
+    </div>
+  </div>
+  <div class="works__track" id="worksTrack"></div>
+</section>
+
+<dialog class="vmodal" id="vmodal">
+  <button type="button" class="vmodal__close" id="vClose" data-i18n-aria="w_close" aria-label="Закрыть">×</button>
+  <div class="vmodal__body" id="vBody"></div>
+  <p class="vmodal__title mono" id="vTitle"></p>
+</dialog>
+
 <!-- STATS -->
 <section class="stats">
   <div class="wrap stats__grid">
@@ -232,7 +254,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="i18n.js?v=5"></script>
-<script src="main.js?v=5"></script>
+<script src="i18n.js?v=6"></script>
+<script src="works.js?v=6"></script>
+<script src="main.js?v=6"></script>
 </body>
 </html>
