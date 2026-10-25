@@ -92,11 +92,11 @@
     tash: [69.2, 41.3, 1], alm: [76.9, 43.2], urum: [87.6, 43.8], lyun: [119.2, 34.6],
     busan: [129, 35.1, 1], inch: [126.6, 37.5], kobe: [135.2, 34.7, 1], laem: [100.9, 13.1, 1], vlad: [131.9, 43.1, 1], mosc: [37.6, 55.7]
   };
-  const MARQUEE = ['tash', 'alm', 'urum', 'lyun', 'busan', 'inch', 'kobe', 'imab', 'laem', 'vlad'];
+  const MARQUEE = ['busan', 'inch', 'kobe', 'imab', 'laem', 'vlad', 'lyun', 'urum', 'alm', 'tash'];
   const ROUTES = [
-    { days: '25–30', min: 25, max: 30, via: ['tash', 'alm', 'urum', 'lyun', 'busan'], bend: -40 },
-    { days: '35–40', min: 35, max: 40, via: ['tash', 'alm', 'urum', 'lyun', 'kobe'], bend: -55 },
-    { days: '35–40', min: 35, max: 40, via: ['tash', 'urum', 'laem'], bend: 60 },
+    { days: '25–30', min: 25, max: 30, via: ['busan', 'lyun', 'urum', 'alm', 'tash'], bend: -40 },
+    { days: '35–40', min: 35, max: 40, via: ['kobe', 'lyun', 'urum', 'alm', 'tash'], bend: -55 },
+    { days: '35–40', min: 35, max: 40, via: ['laem', 'urum', 'tash'], bend: 60 },
     { days: '15', min: 15, max: 15, via: ['vlad', 'tash'], bend: -70 }
   ];
   const T = I18N.t;
