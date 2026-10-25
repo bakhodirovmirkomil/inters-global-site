@@ -1,6 +1,6 @@
 :root{
   --ink:#07142E; --cobalt:#0B3187; --cobalt-d:#0A2A5B; --orange:#FF5A1F; --teal:#0F7B6C; --mist:#EEF1F7; --white:#fff;
-  --f-display:'Unbounded',sans-serif; --f-body:'Manrope',sans-serif; --f-mono:'JetBrains Mono',monospace;
+  --f-display:'Unbounded','Noto Sans KR',sans-serif; --f-body:'Manrope','Noto Sans KR',sans-serif; --f-mono:'JetBrains Mono','Noto Sans KR',monospace;
   --ease:cubic-bezier(.2,.8,.2,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -135,8 +135,8 @@ h2{font-size:clamp(34px,5.2vw,76px)}
 .card ul{font-size:13px;display:flex;flex-direction:column;gap:8px;margin-bottom:auto}
 .card li::before{content:"— ";opacity:.6}
 .card__link{margin-top:32px;font-weight:700;display:flex;gap:10px;position:relative;z-index:1}
-.card__link span{transition:transform .4s var(--ease)}
-.card__link:hover span{transform:translateX(8px)}
+.card__link .arr{transition:transform .4s var(--ease)}
+.card__link:hover .arr{transform:translateX(8px)}
 
 /* stats */
 .stats{background:var(--ink);color:#fff;padding:110px 0}
@@ -218,3 +218,21 @@ input[type=range]{accent-color:var(--orange);width:100%}
   *{animation:none!important;transition:none!important}
   .rv,.chip{opacity:1;transform:none}
 }
+
+/* language switcher */
+.nav__right{display:flex;align-items:center;gap:18px}
+.lang{display:flex;gap:2px;padding:3px;border-radius:999px;border:1.5px solid currentColor;border-color:color-mix(in srgb,currentColor 35%,transparent)}
+.lang button{font:500 12px var(--f-mono);letter-spacing:.04em;color:inherit;background:transparent;border:0;padding:6px 9px;border-radius:999px;cursor:pointer;transition:background .3s,color .3s}
+.lang button:hover{background:color-mix(in srgb,currentColor 14%,transparent)}
+.lang button[aria-pressed=true]{background:var(--orange);color:#fff}
+
+/* per-language type tuning */
+html[lang=uz] .hero__title{font-size:clamp(30px,8.4vw,150px)}
+html[lang=en] .hero__title{font-size:clamp(34px,9.4vw,160px)}
+html[lang=ko] .hero__title{font-size:clamp(36px,9vw,160px);letter-spacing:-.03em;line-height:1.02;text-transform:none;font-weight:900}
+html[lang=ko] h2,html[lang=ko] h3,html[lang=ko] h4{letter-spacing:-.01em;line-height:1.2;word-break:keep-all}
+html[lang=ko] p,html[lang=ko] li{word-break:keep-all}
+html[lang=uz] h2{font-size:clamp(30px,4.6vw,66px)}
+html[lang=uz] .card h3,html[lang=en] .card h3{font-size:24px}
+@media (max-width:1000px){.lang button{padding:5px 7px}}
+@media (max-width:760px){.nav__cta{display:none}.nav{padding:14px 20px}.nav.scrolled{padding:10px 20px}.hero__inner{padding-left:20px;padding-right:20px}}

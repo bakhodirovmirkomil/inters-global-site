@@ -1,5 +1,6 @@
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const loc = () => ({ ru: 'ru-RU', uz: 'uz-UZ', ko: 'ko-KR', en: 'en-US' }[I18N.lang] || 'en-US');
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   gsap.registerPlugin(ScrollTrigger);
@@ -88,15 +89,17 @@
   const NS = 'http://www.w3.org/2000/svg';
   const proj = (lon, lat) => [(lon - 25) / 125 * 1000, (65 - lat) / 60 * 500];
   const C = {
-    tash: ['Ташкент', 69.2, 41.3, 1], alm: ['Алматы', 76.9, 43.2], urum: ['Урумчи', 87.6, 43.8], lyun: ['Ляньюньган', 119.2, 34.6],
-    busan: ['Пусан', 129, 35.1, 1], inch: ['Инчхон', 126.6, 37.5], kobe: ['Кобе', 135.2, 34.7, 1], laem: ['Лаем Чабанг', 100.9, 13.1, 1], vlad: ['Владивосток', 131.9, 43.1, 1], mosc: ['Москва', 37.6, 55.7]
+    tash: [69.2, 41.3, 1], alm: [76.9, 43.2], urum: [87.6, 43.8], lyun: [119.2, 34.6],
+    busan: [129, 35.1, 1], inch: [126.6, 37.5], kobe: [135.2, 34.7, 1], laem: [100.9, 13.1, 1], vlad: [131.9, 43.1, 1], mosc: [37.6, 55.7]
   };
+  const MARQUEE = ['tash', 'alm', 'urum', 'lyun', 'busan', 'inch', 'kobe', 'imab', 'laem', 'vlad'];
   const ROUTES = [
-    { name: 'Ташкент → Пусан, Инчхон', short: 'Ташкент → Пусан', days: '25–30', min: 25, max: 30, via: ['tash', 'alm', 'urum', 'lyun', 'busan'], desc: 'Железная дорога через Казахстан и Китай, затем морем из порта Ляньюньган.', bend: -40 },
-    { name: 'Ташкент → Кобе, Имабари', short: 'Ташкент → Кобе', days: '35–40', min: 35, max: 40, via: ['tash', 'alm', 'urum', 'lyun', 'kobe'], desc: 'Мультимодальная схема с морским плечом до японских портов.', bend: -55 },
-    { name: 'Ташкент → Лаем Чабанг', short: 'Ташкент → Лаем Чабанг', days: '35–40', min: 35, max: 40, via: ['tash', 'urum', 'laem'], desc: 'Рельсы до китайского порта и морской переход в Таиланд.', bend: 60 },
-    { name: 'Владивосток → Ташкент', short: 'Владивосток → Ташкент', days: '15', min: 15, max: 15, via: ['vlad', 'tash'], desc: 'Транзит контейнеров из дальневосточного порта в Узбекистан.', bend: -70 }
+    { days: '25–30', min: 25, max: 30, via: ['tash', 'alm', 'urum', 'lyun', 'busan'], bend: -40 },
+    { days: '35–40', min: 35, max: 40, via: ['tash', 'alm', 'urum', 'lyun', 'kobe'], bend: -55 },
+    { days: '35–40', min: 35, max: 40, via: ['tash', 'urum', 'laem'], bend: 60 },
+    { days: '15', min: 15, max: 15, via: ['vlad', 'tash'], bend: -70 }
   ];
+  const T = I18N.t;
 
   const svg = $('#map'), gGrat = $('#graticule'), gBase = $('#routeBase'), gLive = $('#routeLive'), gCity = $('#cities'), dot = $('#trainDot');
   const mk = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e; };
@@ -105,7 +108,7 @@
   for (let lat = 10; lat <= 60; lat += 10) { const [, y] = proj(0, lat); mk('line', { x1: 0, x2: 1000, y1: y, y2: y }, gGrat); mk('text', { x: 6, y: y - 4 }, gGrat).textContent = lat + '°N'; }
 
   const pathD = r => {
-    const pts = r.via.map(k => proj(C[k][1], C[k][2]));
+    const pts = r.via.map(k => proj(C[k][0], C[k][1]));
     let d = `M${pts[0]}`;
     for (let i = 1; i < pts.length; i++) {
       const [x0, y0] = pts[i - 1], [x1, y1] = pts[i];
@@ -116,20 +119,27 @@
   };
   ROUTES.forEach(r => { r.d = pathD(r); mk('path', { d: r.d }, gBase); r.el = mk('path', { d: r.d }, gLive); r.len = r.el.getTotalLength(); r.el.style.strokeDasharray = r.len; r.el.style.strokeDashoffset = r.len; });
 
-  Object.values(C).forEach(([n, lo, la, big]) => {
+  const cityLabels = [];
+  Object.entries(C).forEach(([id, [lo, la, big]]) => {
     const [x, y] = proj(lo, la);
     mk('circle', { cx: x, cy: y, r: big ? 6 : 3.5, class: big ? 'big' : '' }, gCity);
-    mk('text', { x: x + 10, y: y + 4 }, gCity).textContent = n;
+    const tx = mk('text', { x: x + 10, y: y + 4 }, gCity); tx.dataset.city = id; cityLabels.push(tx);
   });
   gCity.appendChild(dot);
 
   const list = $('#rlist');
   ROUTES.forEach((r, i) => {
     const li = document.createElement('li');
-    li.innerHTML = `<button type="button">${r.short}<small>${r.days} дн.</small></button>`;
+    li.innerHTML = '<button type="button"><span></span><small></small></button>';
     li.firstChild.addEventListener('click', () => goRoute(i));
     list.appendChild(li);
   });
+  const renderRoutesText = () => {
+    $$('button', list).forEach((b, i) => { b.firstChild.textContent = T('r' + i + 's'); b.lastChild.textContent = I18N.days(ROUTES[i].days); });
+    cityLabels.forEach(tx => { tx.textContent = T('c_' + tx.dataset.city); });
+    if (cur >= 0) { $('#rDays').textContent = ROUTES[cur].days; $('#rTitle').textContent = T('r' + cur); $('#rDesc').textContent = T('r' + cur + 'd'); }
+    $('#marquee').innerHTML = [0, 1].map(() => MARQUEE.map(k => `<span>${T('c_' + k)}</span>`).join('')).join('');
+  };
 
   let cur = -1;
   const setActive = i => {
@@ -138,7 +148,7 @@
     const r = ROUTES[i];
     ROUTES.forEach((o, k) => { if (k !== i) { o.el.style.strokeDashoffset = o.len; } });
     gsap.fromTo('.rcard', { y: 12, opacity: .4 }, { y: 0, opacity: 1, duration: .5 });
-    $('#rDays').textContent = r.days; $('#rTitle').textContent = r.name; $('#rDesc').textContent = r.desc;
+    $('#rDays').textContent = r.days; $('#rTitle').textContent = T('r' + i); $('#rDesc').textContent = T('r' + i + 'd');
   };
   const place = (i, p) => {
     const r = ROUTES[i], e = Math.min(1, p);
@@ -162,7 +172,7 @@
       lenis ? lenis.scrollTo(y) : scrollTo({ top: y, behavior: 'smooth' });
     } else { setActive(i); const o = { p: 0 }; gsap.to(o, { p: 1, duration: 1.6, ease: 'power2.inOut', onUpdate: () => place(i, o.p) }); }
   }
-  setActive(0); place(0, 0.001);
+  setActive(0); place(0, 0.001); renderRoutesText();
   if (!pinST.vars.pin) goRoute(0);
 
   /* ---------- reveals ---------- */
@@ -175,7 +185,7 @@
   $$('[data-count]').forEach(el => {
     const end = +el.dataset.count, o = { v: 0 };
     ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: () => {
-      gsap.to(o, { v: end, duration: reduce ? 0 : 2, ease: 'power2.out', onUpdate: () => el.textContent = Math.round(o.v).toLocaleString('ru-RU'), onComplete: () => el.textContent = end.toLocaleString('ru-RU') });
+      gsap.to(o, { v: end, duration: reduce ? 0 : 2, ease: 'power2.out', onUpdate: () => el.textContent = Math.round(o.v).toLocaleString(loc()), onComplete: () => el.textContent = end.toLocaleString(loc()) });
     } });
   });
 
@@ -187,11 +197,11 @@
   if (ln && !reduce) { ln.style.strokeDasharray = '100%'; gsap.fromTo(ln, { strokeDashoffset: '100%' }, { strokeDashoffset: '0%', ease: 'none', scrollTrigger: { trigger: '#steps', start: 'top 75%', end: 'bottom 60%', scrub: .4 } }); }
 
   /* ---------- calculator ---------- */
-  const fRoute = $('#fRoute'), fW = $('#fWeight'), types = ['Контейнер 20\'', 'Контейнер 40\'', 'Сборный груз', 'Блок-поезд'];
+  const fRoute = $('#fRoute'), fW = $('#fWeight');
   const typeAdj = [0, 0, 5, -2]; // сборный груз дольше, блок-поезд быстрее
   const calc = () => {
     const r = ROUTES[+fRoute.value], t = +$('#fType input:checked').value, w = +fW.value;
-    $('#wVal').textContent = w + ' т';
+    $('#wVal').textContent = w + ' ' + T('unit_t');
     const min = Math.max(7, r.min + typeAdj[t] - (r.min === r.max ? 0 : 0)), max = r.max + typeAdj[t] + (t === 2 ? 3 : 0);
     const txt = min === max ? `${min}` : `${min}–${max}`;
     const el = $('#cDays');
@@ -199,7 +209,7 @@
     el.textContent = txt;
     const pct = Math.min(95, 12 + (max / 45) * 80);
     $('#cBar').style.width = pct + '%'; $('#cTrain').style.left = pct + '%';
-    $('#cSummary').textContent = `${r.short} · ${types[t]} · ${w} т`;
+    $('#cSummary').textContent = `${T('r' + (+fRoute.value) + 's')} · ${T('ty' + t)} · ${w} ${T('unit_t')}`;
   };
   [fRoute, fW].forEach(e => e.addEventListener('input', calc));
   $$('#fType input').forEach(e => e.addEventListener('change', calc));
@@ -216,5 +226,10 @@
     e.target.reset(); calc();
   });
 
+  I18N.on(() => {
+    renderRoutesText(); calc();
+    $$('[data-count]').forEach(el => { if (el.textContent !== '0') el.textContent = (+el.dataset.count).toLocaleString(loc()); });
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+  });
   addEventListener('load', () => ScrollTrigger.refresh());
 })();

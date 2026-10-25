@@ -7,9 +7,9 @@
 <meta name="description" content="Блок-поезда, мультимодальные и железнодорожные перевозки из Центральной Азии в Корею, Японию, Таиланд и Россию.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="icon" href="img/favicon.png">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
@@ -22,12 +22,20 @@
 <header class="nav" id="nav">
   <a href="#top" class="logo" aria-label="INTER S GLOBAL"><img class="logo__w" src="img/logo-white.png" alt="INTER S GLOBAL"><img class="logo__n" src="img/logo-navy.png" alt=""></a>
   <nav class="nav__links">
-    <a href="#routes">Маршруты</a>
-    <a href="#services">Услуги</a>
-    <a href="#calc">Расчёт</a>
-    <a href="#contacts">Контакты</a>
+    <a href="#routes" data-i18n="nav_routes">Маршруты</a>
+    <a href="#services" data-i18n="nav_services">Услуги</a>
+    <a href="#calc" data-i18n="nav_calc">Расчёт</a>
+    <a href="#contacts" data-i18n="nav_contacts">Контакты</a>
   </nav>
-  <a href="#calc" class="btn btn--sm magnetic">Оставить заявку</a>
+  <div class="nav__right">
+    <div class="lang mono" role="group" aria-label="Language">
+      <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+      <button type="button" data-lang="uz" aria-pressed="false">UZ</button>
+      <button type="button" data-lang="ko" aria-pressed="false">KO</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a href="#calc" class="btn btn--sm magnetic nav__cta" data-i18n="nav_cta">Оставить заявку</a>
+  </div>
 </header>
 
 <main id="top">
@@ -35,23 +43,23 @@
 <section class="hero">
   <div class="hero__grid" aria-hidden="true"></div>
   <div class="hero__inner">
-    <p class="eyebrow mono"><i class="pulse"></i> Ташкент · Алматы · Владивосток</p>
-    <h1 class="hero__title" aria-label="Евразия в одном маршруте">
-      <span class="line"><span>Евразия</span></span>
-      <span class="line"><span>в одном</span></span>
-      <span class="line"><span class="accent">маршруте</span></span>
+    <p class="eyebrow mono"><i class="pulse"></i> <span data-i18n="hero_eyebrow">Ташкент · Алматы · Владивосток</span></p>
+    <h1 class="hero__title" data-i18n-aria="h1_aria" aria-label="Евразия в одном маршруте">
+      <span class="line"><span data-i18n="h1_a">Евразия</span></span>
+      <span class="line"><span data-i18n="h1_b">в одном</span></span>
+      <span class="line"><span class="accent" data-i18n="h1_c">маршруте</span></span>
     </h1>
     <div class="hero__bottom">
-      <p class="hero__lead">Блок-поезда, мультимодальные и железнодорожные перевозки из Центральной Азии в Корею, Японию, Таиланд и Россию. Один договор — от склада до порта.</p>
+      <p class="hero__lead" data-i18n="hero_lead"></p>
       <div class="hero__cta">
-        <a href="#calc" class="btn btn--accent magnetic">Рассчитать перевозку</a>
-        <a href="#routes" class="btn btn--ghost magnetic">Смотреть маршруты</a>
+        <a href="#calc" class="btn btn--accent magnetic" data-i18n="cta_calc">Рассчитать перевозку</a>
+        <a href="#routes" class="btn btn--ghost magnetic" data-i18n="cta_routes">Смотреть маршруты</a>
       </div>
     </div>
   </div>
 
-  <div class="chip chip--a mono" data-depth="-30"><b>КТК 40' HC</b> Ташкент → Пусан<em>27 дн.</em></div>
-  <div class="chip chip--b mono" data-depth="40"><b>Блок-поезд</b> Владивосток → Ташкент<em>15 дн.</em></div>
+  <div class="chip chip--a mono" data-depth="-30"><b>КТК 40' HC</b> <span data-i18n="chipA_r"></span><em data-i18n="chipA_d"></em></div>
+  <div class="chip chip--b mono" data-depth="40"><b data-i18n="chipB_t"></b> <span data-i18n="chipB_r"></span><em data-i18n="chipB_d"></em></div>
 
   <div class="rail" aria-hidden="true">
     <div class="rail__train" id="train"></div>
@@ -59,24 +67,21 @@
   </div>
 </section>
 
-<!-- MARQUEE -->
+<!-- MARQUEE (заполняется из main.js) -->
 <section class="marquee" aria-hidden="true">
-  <div class="marquee__row">
-    <span>Ташкент</span><span>Алматы</span><span>Урумчи</span><span>Ляньюньган</span><span>Пусан</span><span>Инчхон</span><span>Кобе</span><span>Имабари</span><span>Лаем Чабанг</span><span>Владивосток</span>
-    <span>Ташкент</span><span>Алматы</span><span>Урумчи</span><span>Ляньюньган</span><span>Пусан</span><span>Инчхон</span><span>Кобе</span><span>Имабари</span><span>Лаем Чабанг</span><span>Владивосток</span>
-  </div>
+  <div class="marquee__row" id="marquee"></div>
 </section>
 
 <!-- ROUTE MAP -->
 <section class="routes" id="routes">
   <div class="routes__pin">
     <div class="routes__head">
-      <p class="eyebrow mono">Маршруты</p>
-      <h2>Следите за грузом<br>по карте</h2>
+      <p class="eyebrow mono" data-i18n="nav_routes">Маршруты</p>
+      <h2 data-i18n-html="routes_h2"></h2>
     </div>
 
     <div class="map">
-      <svg id="map" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet" aria-label="Карта маршрутов">
+      <svg id="map" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet" aria-label="Map">
         <g id="graticule"></g>
         <g id="routeBase"></g>
         <g id="routeLive"></g>
@@ -88,9 +93,9 @@
     <ol class="rlist" id="rlist"></ol>
 
     <div class="rcard">
-      <div class="rcard__days"><span id="rDays">25–30</span><small class="mono">дней в пути</small></div>
+      <div class="rcard__days"><span id="rDays">25–30</span><small class="mono" data-i18n="in_transit"></small></div>
       <div class="rcard__meta">
-        <h3 id="rTitle">Ташкент → Пусан, Инчхон</h3>
+        <h3 id="rTitle"></h3>
         <p id="rDesc"></p>
         <div class="rcard__bar"><i id="rBar"></i></div>
       </div>
@@ -102,36 +107,36 @@
 <section class="services" id="services">
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow mono">Услуги</p>
-      <h2>Три способа<br>довезти груз</h2>
+      <p class="eyebrow mono" data-i18n="nav_services">Услуги</p>
+      <h2 data-i18n-html="svc_h2"></h2>
     </div>
     <div class="cards">
       <article class="card card--blue">
         <div class="card__ico" aria-hidden="true">
           <svg viewBox="0 0 120 60"><g class="wag"><rect x="2" y="14" width="34" height="28" rx="2"/><rect x="42" y="14" width="34" height="28" rx="2"/><rect x="82" y="14" width="34" height="28" rx="2"/></g><line x1="0" y1="50" x2="120" y2="50"/><circle cx="14" cy="50" r="3"/><circle cx="54" cy="50" r="3"/><circle cx="94" cy="50" r="3"/></svg>
         </div>
-        <h3>Блок-поезд</h3>
-        <p>Целый состав под ваш груз. Фиксированный график и максимально короткий транзит на дальние расстояния.</p>
-        <ul class="mono"><li>От 50 вагонов</li><li>Свой график отправлений</li><li>Контроль на каждой станции</li></ul>
-        <a href="#routes" class="card__link">Смотреть маршруты <span>→</span></a>
+        <h3 data-i18n="s1_t"></h3>
+        <p data-i18n="s1_p"></p>
+        <ul class="mono"><li data-i18n="s1_a"></li><li data-i18n="s1_b"></li><li data-i18n="s1_c"></li></ul>
+        <a href="#routes" class="card__link"><span data-i18n="cta_routes"></span><span class="arr">→</span></a>
       </article>
       <article class="card card--orange">
         <div class="card__ico" aria-hidden="true">
           <svg viewBox="0 0 120 60"><path d="M4 44h28l10-26h20l10 26h44"/><circle cx="20" cy="48" r="4"/><circle cx="96" cy="48" r="4"/><path d="M70 18h30l14 14"/></svg>
         </div>
-        <h3>Мультимодальные перевозки</h3>
-        <p>Железная дорога, порт, море и авто в одной ставке. Краткосрочная и долгосрочная аренда подвижного состава.</p>
-        <ul class="mono"><li>Один договор и один менеджер</li><li>Аренда платформ и КТК</li><li>Доставка до двери</li></ul>
-        <a href="#routes" class="card__link">Смотреть маршруты <span>→</span></a>
+        <h3 data-i18n="s2_t"></h3>
+        <p data-i18n="s2_p"></p>
+        <ul class="mono"><li data-i18n="s2_a"></li><li data-i18n="s2_b"></li><li data-i18n="s2_c"></li></ul>
+        <a href="#routes" class="card__link"><span data-i18n="cta_routes"></span><span class="arr">→</span></a>
       </article>
       <article class="card card--teal">
         <div class="card__ico" aria-hidden="true">
           <svg viewBox="0 0 120 60"><path d="M4 50L40 20l20 20 20-26 36 36"/><line x1="0" y1="54" x2="120" y2="54"/><circle cx="40" cy="20" r="4"/><circle cx="80" cy="14" r="4"/></svg>
         </div>
-        <h3>Железнодорожные перевозки</h3>
-        <p>Отправки отдельными вагонами и контейнерами по Узбекистану, Казахстану, России и Китаю.</p>
-        <ul class="mono"><li>Вагоны и контейнеры</li><li>Таможенное оформление</li><li>Отслеживание онлайн</li></ul>
-        <a href="#routes" class="card__link">Смотреть маршруты <span>→</span></a>
+        <h3 data-i18n="s3_t"></h3>
+        <p data-i18n="s3_p"></p>
+        <ul class="mono"><li data-i18n="s3_a"></li><li data-i18n="s3_b"></li><li data-i18n="s3_c"></li></ul>
+        <a href="#routes" class="card__link"><span data-i18n="cta_routes"></span><span class="arr">→</span></a>
       </article>
     </div>
   </div>
@@ -140,10 +145,10 @@
 <!-- STATS -->
 <section class="stats">
   <div class="wrap stats__grid">
-    <div><b data-count="6500">0</b><span>+</span><p>клиентов</p></div>
-    <div><b data-count="57">0</b><p>стран</p></div>
-    <div><b data-count="785">0</b><p>партнёров</p></div>
-    <div><b data-count="4500">0</b><span>+</span><p>проектов</p></div>
+    <div><b data-count="6500">0</b><span>+</span><p data-i18n="st_clients"></p></div>
+    <div><b data-count="57">0</b><p data-i18n="st_countries"></p></div>
+    <div><b data-count="785">0</b><p data-i18n="st_partners"></p></div>
+    <div><b data-count="4500">0</b><span>+</span><p data-i18n="st_projects"></p></div>
   </div>
 </section>
 
@@ -151,16 +156,16 @@
 <section class="process">
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow mono">Как это работает</p>
-      <h2>От заявки<br>до разгрузки</h2>
+      <p class="eyebrow mono" data-i18n="pr_eyebrow"></p>
+      <h2 data-i18n-html="pr_h2"></h2>
     </div>
     <div class="steps" id="steps">
       <svg class="steps__line" preserveAspectRatio="none" viewBox="0 0 100 2"><line x1="0" y1="1" x2="100" y2="1"/></svg>
-      <div class="step"><i></i><h4>Заявка</h4><p>Вы называете груз, маршрут и сроки.</p></div>
-      <div class="step"><i></i><h4>Расчёт</h4><p>Готовим ставку и схему за один рабочий день.</p></div>
-      <div class="step"><i></i><h4>Погрузка</h4><p>Подаём вагон или контейнер, оформляем документы.</p></div>
-      <div class="step"><i></i><h4>В пути</h4><p>Статус каждой станции в личном кабинете.</p></div>
-      <div class="step"><i></i><h4>Выдача</h4><p>Таможня, порт, доставка получателю.</p></div>
+      <div class="step"><i></i><h4 data-i18n="p1_t"></h4><p data-i18n="p1_p"></p></div>
+      <div class="step"><i></i><h4 data-i18n="p2_t"></h4><p data-i18n="p2_p"></p></div>
+      <div class="step"><i></i><h4 data-i18n="p3_t"></h4><p data-i18n="p3_p"></p></div>
+      <div class="step"><i></i><h4 data-i18n="p4_t"></h4><p data-i18n="p4_p"></p></div>
+      <div class="step"><i></i><h4 data-i18n="p5_t"></h4><p data-i18n="p5_p"></p></div>
     </div>
   </div>
 </section>
@@ -169,43 +174,43 @@
 <section class="calc" id="calc">
   <div class="wrap calc__grid">
     <div class="calc__left">
-      <p class="eyebrow mono">Расчёт</p>
-      <h2>Узнайте срок<br>за 10 секунд</h2>
-      <p class="calc__note">Ориентир по транзиту. Точную ставку менеджер пришлёт в течение рабочего дня.</p>
+      <p class="eyebrow mono" data-i18n="nav_calc">Расчёт</p>
+      <h2 data-i18n-html="calc_h2"></h2>
+      <p class="calc__note" data-i18n="calc_note"></p>
       <div class="calc__out">
-        <div class="calc__days"><b id="cDays">25–30</b><small class="mono">дней</small></div>
+        <div class="calc__days"><b id="cDays">25–30</b><small class="mono" data-i18n="days_u"></small></div>
         <div class="calc__track"><i id="cBar"></i><span id="cTrain"></span></div>
         <p class="mono" id="cSummary"></p>
       </div>
     </div>
 
     <form class="form" id="form" novalidate>
-      <label>Маршрут
+      <label><span data-i18n="f_route"></span>
         <select id="fRoute">
-          <option value="0">Ташкент → Пусан, Инчхон</option>
-          <option value="1">Ташкент → Кобе, Имабари</option>
-          <option value="2">Ташкент → Лаем Чабанг</option>
-          <option value="3">Владивосток → Ташкент</option>
+          <option value="0" data-i18n="r0"></option>
+          <option value="1" data-i18n="r1"></option>
+          <option value="2" data-i18n="r2"></option>
+          <option value="3" data-i18n="r3"></option>
         </select>
       </label>
       <fieldset>
-        <legend>Тип груза</legend>
+        <legend data-i18n="f_type"></legend>
         <div class="seg" id="fType">
-          <label><input type="radio" name="t" value="0" checked><span>Контейнер 20'</span></label>
-          <label><input type="radio" name="t" value="1"><span>Контейнер 40'</span></label>
-          <label><input type="radio" name="t" value="2"><span>Сборный груз</span></label>
-          <label><input type="radio" name="t" value="3"><span>Блок-поезд</span></label>
+          <label><input type="radio" name="t" value="0" checked><span data-i18n="ty0"></span></label>
+          <label><input type="radio" name="t" value="1"><span data-i18n="ty1"></span></label>
+          <label><input type="radio" name="t" value="2"><span data-i18n="ty2"></span></label>
+          <label><input type="radio" name="t" value="3"><span data-i18n="ty3"></span></label>
         </div>
       </fieldset>
-      <label>Вес: <b id="wVal" class="mono">20 т</b>
+      <label><span><span data-i18n="f_weight"></span>: <b id="wVal" class="mono">20</b></span>
         <input type="range" id="fWeight" min="1" max="60" value="20">
       </label>
       <div class="row">
-        <label>Имя<input type="text" id="fName" placeholder="Как к вам обращаться" autocomplete="name"></label>
-        <label>Телефон<input type="tel" id="fPhone" placeholder="+998 __ ___ __ __" autocomplete="tel"></label>
+        <label><span data-i18n="f_name"></span><input type="text" id="fName" data-i18n-ph="f_name_ph" autocomplete="name"></label>
+        <label><span data-i18n="f_phone"></span><input type="tel" id="fPhone" placeholder="+998 __ ___ __ __" autocomplete="tel"></label>
       </div>
-      <button class="btn btn--accent magnetic" type="submit">Отправить заявку</button>
-      <p class="form__ok" id="formOk" role="status" hidden>Заявка принята. Менеджер позвонит в течение рабочего дня.</p>
+      <button class="btn btn--accent magnetic" type="submit" data-i18n="f_submit"></button>
+      <p class="form__ok" id="formOk" role="status" hidden data-i18n="f_ok"></p>
     </form>
   </div>
 </section>
@@ -214,19 +219,20 @@
 <footer class="footer" id="contacts">
   <div class="wrap">
     <div class="footer__cols">
-      <div><h5 class="mono">Узбекистан · Ташкент</h5><p>Адрес офиса уточняется<br>+998 00 000 00 00<br>info@inters.example</p></div>
-      <div><h5 class="mono">Казахстан · Алматы</h5><p>Адрес офиса уточняется<br>+7 000 000 00 00<br>kz@inters.example</p></div>
-      <div><h5 class="mono">Туркменистан</h5><p>Представительство<br>+993 000 000 00<br>tm@inters.example</p></div>
-      <div><h5 class="mono">Соцсети</h5><p><a href="#">LinkedIn</a><br><a href="#">Instagram</a><br><a href="#">Telegram</a></p></div>
+      <div><h5 class="mono" data-i18n="ft_uz"></h5><p><span data-i18n="ft_addr"></span><br>+998 00 000 00 00<br>info@inters.example</p></div>
+      <div><h5 class="mono" data-i18n="ft_kz"></h5><p><span data-i18n="ft_addr"></span><br>+7 000 000 00 00<br>kz@inters.example</p></div>
+      <div><h5 class="mono" data-i18n="ft_tm"></h5><p><span data-i18n="ft_rep"></span><br>+993 000 000 00<br>tm@inters.example</p></div>
+      <div><h5 class="mono" data-i18n="ft_soc"></h5><p><a href="#">LinkedIn</a><br><a href="#">Instagram</a><br><a href="#">Telegram</a></p></div>
     </div>
   </div>
   <div class="footer__word" aria-hidden="true">INTER S GLOBAL</div>
-  <p class="footer__legal mono">© 2026 INTER S GLOBAL. Демо-контент: контакты и название условные.</p>
+  <p class="footer__legal mono" data-i18n="ft_legal"></p>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="main.js"></script>
+<script src="i18n.js?v=4"></script>
+<script src="main.js?v=4"></script>
 </body>
 </html>
